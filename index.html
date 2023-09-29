@@ -36,9 +36,9 @@
             
             <div class="line_cont">
              <div class="line"></div>
-             <button id="calc">
-           <i class="fa fa-arrow-down"></i>
-             </button>
+             <div id="calc">
+             <div class="img"></div>
+             </div>
             </div>
             
          <div class="result_cont">
@@ -303,11 +303,11 @@ main{
             margin:0 auto;
         }
         & button{
+            wi& #calc{
             width:50px;
             height:50px;
-            background:$purple url(https://lukeramljak-age-calculator-app.netlify.app/assets/images/icon-arrow.svg);
+            background:$purple;
             border-radius:50%;
-            background-size:cover;
             margin:0 5px;
             border:none;
             outline:none;
@@ -323,6 +323,14 @@ main{
         }
         & i{
             font-size:18px;
+        }
+        & .img{
+            width:40px;
+            height:40px;
+            scale:.85;
+            background:url(https://lukeramljak-age-calculator-app.netlify.app/assets/images/icon-arrow.svg);
+            background-size:cover;
+            margin:0 auto;
         }
         }
      }
