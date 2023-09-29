@@ -1,4 +1,4 @@
-# Age Calculator Repository
+## Age Calculator
 
 Precision age calculations made easy! This repository offers accurate algorithms styled with Sass and interactive features powered by jQuery.
 
