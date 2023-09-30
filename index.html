@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="keyword" content="Age Calculator, Javascript Age Calculator, Html, CSS, Javascript">
+    <meta name="description" content="Javascript Age Calculator">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://gistcdn.githack.com/cv2k10/92cf0e3582897592b26885a570169c64/raw/b8455e59bf8d0b7ef205d8b11e014160bb25751b/sass-helper.js"></script>
+    <script src="https://kit.fontawesome.com/d3c9fc67a3.js" crossorigin="anonymous"></script>
+        <title>Age Calculator</title>
+    </head>
+    <body>
+        <main>
+        <div class="wrapper">
+        <div class="heading">
+        Age Calculator <i class="fa fa-calculator"></i>
+        </div>
+            <div class="inp_cont">
+             <div class="inp1_cont">
+               <div class="text t1">DAY</div>
+               <input type="number" class="inp1" placeholder="DD" maxlength="2" id="dd">
+               <div class="text2 t21">This field is required</div>
+             </div>
+             <div class="inp1_cont">
+               <div class="text t2">MONTH</div>
+               <input type="number" class="inp2" placeholder="MM" id="mm">
+               <div class="text2 t22">This field is required</div>
+             </div>
+             <div class="inp1_cont">
+               <div class="text t3">YEAR</div>
+               <input type="number" class="inp3" placeholder="YYYY" id="yyy">
+               <div class="text2 t23">This field is required</div>
+             </div>
+            </div>
+            
+            <div class="line_cont">
+             <div class="line"></div>
+             <div id="calc">
+             <div class="img"></div>
+             </div>
+            </div>
+            
+         <div class="result_cont">
+          <h2><span>- -</span>Years</h2>
+          <h2><span>- -</span> Months</h2>
+          <h2><span>- -</span> Days</h2>
+         </div>
+         
+         <div class="3d"></div>
+        
+        </div>
+        </main>
+        <script>
+        $("#dd").on("input",()=>{
+          let dd_len = String($("#dd").val());
+           if(dd_len.length>=2){
+               $("#dd").val(dd_len.substr(0,2));
+               $("#mm").focus();
+           }if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+        }
+        });
+        
+        $("#mm").on("input",()=>{
+          let mm_len = String($("#mm").val());
+           if(mm_len.length>=2){
+               $("#mm").val(mm_len.substr(0,2));
+               $("#yyy").focus();
+           }if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+        }
+        });
+        
+        $("#yyy").on("input",()=>{
+          let yyy_len = String($("#yyy").val());
+           if(yyy_len.length>=4){
+               $("#yyy").val(yyy_len.substr(0,4));
+           }
+           if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+           }
+        });
+ 
+$("#calc").on("click", () => {
+    let currentDate = new Date();
+let userDate = new Date(`${$("#yyy").val()}-${$("#mm").val()}-${$("#dd").val()}`);
+
+let yearsAgo = currentDate.getFullYear() - userDate.getFullYear();
+let monthsAgo = currentDate.getMonth() - userDate.getMonth();
+let daysAgo = currentDate.getDate() - userDate.getDate();
+
+if (daysAgo < 0) {
+    monthsAgo--;
+    daysAgo += 30;
+}
+
+if (monthsAgo < 0) {
+    yearsAgo--;
+    monthsAgo += 12;
+}
+
+   let val = document.querySelectorAll(".result_cont span");
+    let [year,month,day] = val;
+    
+    if($("#dd").val()=="" && $("#mm").val()=="" && $("#yyy").val()==""){
+     for(let i=0;i<=3;i++){
+        $(`.t2${i}`).show();
+        $(`.t${i}`).css({"color":"red"});
+     }
+     $(".text2").css({"color":"red"});
+     $("input").css({"border-color":"red"});
+     $("#dd").focus();
+    }else if($("#dd").val()==""){
+    $(".t21").show().css({"color":"red"});
+    $(".t22").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t23").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t22").hide();
+    $(".t23").hide();
+    $(".t1").css({"color":"red"});
+    $(".t2").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t3").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp1").css({"border-color":"red"});
+    $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#dd").focus();
+    }else if($("#mm").val()==""){
+    $(".t22").show().css({"color":"red"});
+    $(".t21").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t23").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").hide();
+    $(".t23").hide();
+    $(".t2").css({"color":"red"});
+    $(".t1").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t3").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp2").css({"border-color":"red"});
+    $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
+    }else if($("#yyy").val()==""){
+    $(".t23").show().css({"color":"red"});
+    $(".t22").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").hide();
+    $(".t22").hide();
+    $(".t3").css({"color":"red"});
+    $(".t2").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t1").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp3").css({"border-color":"red"});
+    $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#yyy").focus();
+    }else if($("#dd").val()>31 && $("#dd").val()<=0){
+     $(".t21").show().css({"color":"red"});
+     $(".t21").text("Must be a valid day");
+    $(".t22").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t23").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t22").hide();
+    $(".t23").hide();
+    $(".t1").css({"color":"red"});
+    $(".t2").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t3").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp1").css({"border-color":"red"});
+    $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#dd").focus();
+    }else if($("#mm").val()>12 || $("#mm").val()<=0){
+     $(".t22").show().css({"color":"red"});
+     $(".t22").text("Must be a valid month");
+    $(".t21").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t23").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").hide();
+    $(".t23").hide();
+    $(".t2").css({"color":"red"});
+    $(".t1").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t3").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp2").css({"border-color":"red"});
+    $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
+    }else if($("#yyy").val()>currentDate.getFullYear()){
+        $(".t23").show().css({"color":"red"});
+        $(".t23").text("Must be in the past");
+    $(".t22").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").hide();
+    $(".t22").hide();
+    $(".t3").css({"color":"red"});
+    $(".t2").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t1").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp3").css({"border-color":"red"});
+    $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#yyy").focus();
+    }else if($("#yyy").val()==currentDate.getFullYear() && $("#mm").val()>currentDate.getMonth()+1){
+    $(".t22").show().css({"color":"red"});
+     $(".t22").text("Must be a valid month");
+    $(".t21").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t23").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t21").hide();
+    $(".t23").hide();
+    $(".t2").css({"color":"red"});
+    $(".t1").css({"color":"hsl(0, 1%, 44%)"});
+    $(".t3").css({"color":"hsl(0, 1%, 44%)"});
+    $(".inp2").css({"border-color":"red"});
+    $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
+    $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
+    }else{
+    for(let i=0;i<=3;i++){
+        $(`.t2${i}`).hide();
+        $(`.t${i}`).css({"color":"hsl(0, 1%, 44%)"});
+     }
+     $("input").css({"border-color":"hsl(0, 0%, 86%)"});
+     
+     let iday = 0;
+    let tday = setInterval(()=>{
+     $(day).text(iday);
+     if(iday==daysAgo){
+       $(day).text(daysAgo);
+       clearInterval(tday);
+      }
+      iday++;
+     },150);
+     
+     let imonth = 0;
+    let tmonth = setInterval(()=>{
+     $(month).text(imonth);
+     if(imonth==monthsAgo){
+       $(month).text(monthsAgo);
+       clearInterval(tmonth);
+      }
+      imonth++;
+     },100);
+     
+     let iyear = 0;
+    let tyear = setInterval(()=>{
+     $(year).text(iyear);
+     if(iyear==yearsAgo){
+       $(year).text(yearsAgo);
+       clearInterval(tyear);
+      }
+      iyear++;
+     },70);
+     
+    }
+});
+
+        </script>
+        <style type="scss">
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+$purple:hsl(259, 100%, 65%);
+$light-red:hsl(0, 100%, 67%);
+$white:hsl(0, 0%, 100%);
+$off-white:hsl(0, 0%, 94%);
+$light-grey:hsl(0, 0%, 86%);
+$smoke-grey:hsl(0, 1%, 44%);
+$off-black:hsl(0, 0%, 8%);
+@mixin flex($type){
+    display:flex;
+    align-items:center;
+    justify-content:$type;
+}
+@mixin transition{
+    scale:0.9;
+    opacity:.95;
+}
+main{
+    width:100vw;
+    height:100vh;
+    background:$off-white;
+    @include flex(center);
+}
+.wrapper{
+    width:80%;
+    height:auto;
+    background:$white;
+    padding:5px;
+    border:{
+        radius:10px 10px 100px 10px;
+        bottom:10px solid $purple;
+    }
+    .heading{
+        width:100%;
+        height:50px;
+        background:darken($purple, 5%);
+        color:$white;
+        border-radius:12px;
+        text-transform:uppercase;
+        letter-spacing:2px;
+    & i{
+        font-size:22px;
+    }
+        box:{
+            shadow:
+            inset 5px 5px 10px
+            rgba(0,0,0,.2)
+            ;
+        }
+        padding:10px;
+        font:{
+            weight:bolder;
+            size:20px;
+        }
+    }
+    & .inp_cont{
+        width:100%;
+        height:auto;
+        margin:0 auto;
+        margin-top:10px;
+        padding:5px;
+        @include flex(start);
+        flex-wrap:wrap;
+        
+        & .inp1_cont{
+            width:auto;
+            margin:0 10px;
+            flex-basis:200;
+            flex-grow:1;
+         & .text{
+             color:$smoke-grey;
+             font:{
+                size:10px;
+                weight:bolder;
+             }
+         }
+         & .text2{
+             font:{
+                 size:8px;
+                 weight:lighter;
+                 style:italic;
+             }
+             margin-left:-7px;
+         }
+         & .t21, .t22, .t23{
+             display:none;
+         }  
+         & input{
+             width:70px;
+             padding:6px;
+             margin:5px 0;
+             outline:none;
+             border:1px solid $light-grey;
+             border-radius:5px;
+             font:{
+                 weight:bolder;
+                 size:21px;
+             }
+         }
+         
+        }
+    }
+    
+    & .line_cont{
+           @include flex(center);
+           padding:0 10px;
+           position:relative;
+           width:100%;
+           height:50px;
+           margin-top:5px;
+        & .line{
+            width:100%;
+            height:0.8px;
+            background:$light-grey;
+            margin:0 auto;
+        }
+        & #calc{
+            width:50px;
+            height:50px;
+            background:darken($light-grey,25%);
+            border-radius:50%;
+            box-shadow:inset 2px 2px 5px rgba(0,0,0,.15);
+            margin:0 5px;
+            border:none;
+            outline:none;
+            position:absolute;
+            color:$white;
+            right:40%;
+            top:0;
+            transition:all .2s;
+            @include flex(center);
+        &:active{
+            @include transition;
+          background:lighten($purple,10%);
+        }
+        & i{
+            font-size:18px;
+        }
+        & .img{
+            width:40px;
+            height:40px;
+            scale:.85;
+            background:url(https://lukeramljak-age-calculator-app.netlify.app/assets/images/icon-arrow.svg);
+            background-size:cover;
+            margin:0 auto;
+        }
+        }
+     }
+     & .result_cont{
+         width:100%;
+         height:auto;
+         padding:15px;
+         margin-top:-5px;
+         h2{
+             font:{
+                 size:30px;
+                 weight:900;
+                 style:italic;
+             }
+          span{
+              color:$purple;
+              padding:5px;
+          }
+         }
+     }
+     .3d{
+         width:180px;
+         height:180px;
+         background:url(https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/calender-dynamic-premium.png);
+         background-size:cover;
+         position:absolute;
+         z-index:1;
+     }
+}
+@media only screen and (min-width:768px){
+  .wrapper{
+        width:40%;
+        padding:20px;
+        font-size:32px;
+        scale:2;
+    }
+    #calc{
+        right:0%;
+    }
+    .line{
+        width:80%;
+    }
+    .inp1_cont{
+        flex-grow:0;
+    }
+    .text{
+        font-size:20px;
+    }
+    .text2{
+        font-size:17px;
+    }
+    .result_cont h2{
+        font-size:43px;
+    }
+        input{
+         width:100px;
+         padding:10px;
+        font-size:32px;
+        }
+        .inp1_cont{
+        margin:0 3px;
+        }
+}
+        </style>
+    </body>
+  </html>
