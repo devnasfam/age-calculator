@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,9 @@
     <body>
         <main>
         <div class="wrapper">
+        <div class="heading">
+        Age Calculator <i class="fa fa-calculator"></i>
+        </div>
             <div class="inp_cont">
              <div class="inp1_cont">
                <div class="text t1">DAY</div>
@@ -46,6 +49,8 @@
           <h2><span>- -</span> Months</h2>
           <h2><span>- -</span> Days</h2>
          </div>
+         
+         <div class="3d"></div>
         
         </div>
         </main>
@@ -55,7 +60,9 @@
            if(dd_len.length>=2){
                $("#dd").val(dd_len.substr(0,2));
                $("#mm").focus();
-           }
+           }if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+        }
         });
         
         $("#mm").on("input",()=>{
@@ -63,7 +70,9 @@
            if(mm_len.length>=2){
                $("#mm").val(mm_len.substr(0,2));
                $("#yyy").focus();
-           }
+           }if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+        }
         });
         
         $("#yyy").on("input",()=>{
@@ -71,8 +80,10 @@
            if(yyy_len.length>=4){
                $("#yyy").val(yyy_len.substr(0,4));
            }
+           if($("#dd").val()!="" && $("#mm").val()!="" && $("#yyy").val()!="" && $("#yyy").val().length>3){
+       $("#calc").css({"background":"hsl(259, 100%, 65%)"});
+           }
         });
- 
  
 $("#calc").on("click", () => {
     let currentDate = new Date();
@@ -94,6 +105,7 @@ if (monthsAgo < 0) {
 
    let val = document.querySelectorAll(".result_cont span");
     let [year,month,day] = val;
+    
     if($("#dd").val()=="" && $("#mm").val()=="" && $("#yyy").val()==""){
      for(let i=0;i<=3;i++){
         $(`.t2${i}`).show();
@@ -101,6 +113,7 @@ if (monthsAgo < 0) {
      }
      $(".text2").css({"color":"red"});
      $("input").css({"border-color":"red"});
+     $("#dd").focus();
     }else if($("#dd").val()==""){
     $(".t21").show().css({"color":"red"});
     $(".t22").css({"color":"hsl(0, 1%, 44%)"});
@@ -113,6 +126,7 @@ if (monthsAgo < 0) {
     $(".inp1").css({"border-color":"red"});
     $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#dd").focus();
     }else if($("#mm").val()==""){
     $(".t22").show().css({"color":"red"});
     $(".t21").css({"color":"hsl(0, 1%, 44%)"});
@@ -125,6 +139,7 @@ if (monthsAgo < 0) {
     $(".inp2").css({"border-color":"red"});
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
     }else if($("#yyy").val()==""){
     $(".t23").show().css({"color":"red"});
     $(".t22").css({"color":"hsl(0, 1%, 44%)"});
@@ -137,7 +152,8 @@ if (monthsAgo < 0) {
     $(".inp3").css({"border-color":"red"});
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
-    }else if($("#dd").val()>31){
+    $("#yyy").focus();
+    }else if($("#dd").val()>31 && $("#dd").val()<=0){
      $(".t21").show().css({"color":"red"});
      $(".t21").text("Must be a valid day");
     $(".t22").css({"color":"hsl(0, 1%, 44%)"});
@@ -150,7 +166,8 @@ if (monthsAgo < 0) {
     $(".inp1").css({"border-color":"red"});
     $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
-    }else if($("#mm").val()>12){
+    $("#dd").focus();
+    }else if($("#mm").val()>12 || $("#mm").val()<=0){
      $(".t22").show().css({"color":"red"});
      $(".t22").text("Must be a valid month");
     $(".t21").css({"color":"hsl(0, 1%, 44%)"});
@@ -163,6 +180,7 @@ if (monthsAgo < 0) {
     $(".inp2").css({"border-color":"red"});
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
     }else if($("#yyy").val()>currentDate.getFullYear()){
         $(".t23").show().css({"color":"red"});
         $(".t23").text("Must be in the past");
@@ -176,6 +194,7 @@ if (monthsAgo < 0) {
     $(".inp3").css({"border-color":"red"});
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#yyy").focus();
     }else if($("#yyy").val()==currentDate.getFullYear() && $("#mm").val()>currentDate.getMonth()+1){
     $(".t22").show().css({"color":"red"});
      $(".t22").text("Must be a valid month");
@@ -189,21 +208,50 @@ if (monthsAgo < 0) {
     $(".inp2").css({"border-color":"red"});
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp3").css({"border-color":"hsl(0, 0%, 86%)"});
+    $("#mm").focus();
     }else{
     for(let i=0;i<=3;i++){
         $(`.t2${i}`).hide();
         $(`.t${i}`).css({"color":"hsl(0, 1%, 44%)"});
      }
      $("input").css({"border-color":"hsl(0, 0%, 86%)"});
-    $(day).text(daysAgo);
-    $(month).text(monthsAgo);
-    $(year).text(yearsAgo);
+     
+     let iday = 0;
+    let tday = setInterval(()=>{
+     $(day).text(iday);
+     if(iday==daysAgo){
+       $(day).text(daysAgo);
+       clearInterval(tday);
+      }
+      iday++;
+     },150);
+     
+     let imonth = 0;
+    let tmonth = setInterval(()=>{
+     $(month).text(imonth);
+     if(imonth==monthsAgo){
+       $(month).text(monthsAgo);
+       clearInterval(tmonth);
+      }
+      imonth++;
+     },100);
+     
+     let iyear = 0;
+    let tyear = setInterval(()=>{
+     $(year).text(iyear);
+     if(iyear==yearsAgo){
+       $(year).text(yearsAgo);
+       clearInterval(tyear);
+      }
+      iyear++;
+     },70);
+     
     }
 });
+
         </script>
-    <style type="scss">
-    
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        <style stype="scss">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 *{
     margin:0;
     padding:0;
@@ -239,8 +287,31 @@ main{
     padding:5px;
     border:{
         radius:10px 10px 100px 10px;
+        bottom:10px solid $purple;
     }
-    
+    .heading{
+        width:100%;
+        height:50px;
+        background:darken($purple, 5%);
+        color:$white;
+        border-radius:12px;
+        text-transform:uppercase;
+        letter-spacing:2px;
+    & i{
+        font-size:22px;
+    }
+        box:{
+            shadow:
+            inset 5px 5px 10px
+            rgba(0,0,0,.2)
+            ;
+        }
+        padding:10px;
+        font:{
+            weight:bolder;
+            size:20px;
+        }
+    }
     & .inp_cont{
         width:100%;
         height:auto;
@@ -305,8 +376,9 @@ main{
         & #calc{
             width:50px;
             height:50px;
-            background:$purple;
+            background:darken($light-grey,25%);
             border-radius:50%;
+            box-shadow:inset 2px 2px 5px rgba(0,0,0,.15);
             margin:0 5px;
             border:none;
             outline:none;
@@ -350,41 +422,16 @@ main{
           }
          }
      }
+     .3d{
+         width:180px;
+         height:180px;
+         background:url(https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/calender-dynamic-premium.png);
+         background-size:cover;
+         position:absolute;
+         z-index:1;
+     }
 }
 @media only screen and (min-width:768px){
-    .wrapper{
-        width:40%;
-        padding:15px;
-        scale:1.7;
-    }
-    #calc{
-        right:0%;
-    }
-    .line{
-        width:80%;
-    }
-    .inp1_cont{
-        flex-grow:0;
-    }
-    .text{
-        font-size:20px;
-    }
-    .text2{
-        font-size:17px;
-    }
-    .result_cont h2{
-        font-size:37px;
-    }
-        input{
-         width:100px;
-         padding:12px;
-        font-size:32px;
-        }
-        .inp1_cont{
-          margin:0 3px;
-        }
-}
-        @media only screen and (min-width:768px){
   .wrapper{
         width:40%;
         padding:20px;
@@ -418,7 +465,6 @@ main{
         margin:0 3px;
         }
 }
-     
-    </style>
+        </style>
     </body>
-</html>
+                 </html>
