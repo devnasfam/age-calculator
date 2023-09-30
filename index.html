@@ -153,7 +153,7 @@ if (monthsAgo < 0) {
     $(".inp1").css({"border-color":"hsl(0, 0%, 86%)"});
     $(".inp2").css({"border-color":"hsl(0, 0%, 86%)"});
     $("#yyy").focus();
-    }else if($("#dd").val()>31 && $("#dd").val()<=0){
+    }else if($("#dd").val()>31 || $("#dd").val()<=0){
      $(".t21").show().css({"color":"red"});
      $(".t21").text("Must be a valid day");
     $(".t22").css({"color":"hsl(0, 1%, 44%)"});
